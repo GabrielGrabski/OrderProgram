@@ -26,7 +26,10 @@ namespace OrderProgram
             Console.Write("How many items to this order? ");
             int n = int.Parse(Console.ReadLine());
 
-            for(int i = 1; i <= n; i++)
+            Client client = new Client(name, email, birthDate);
+            Order order = new Order(DateTime.Now, status, client);
+
+            for (int i = 1; i <= n; i++)
             {
                 Console.WriteLine($"Enter #{i} item data: ");
 
@@ -36,20 +39,21 @@ namespace OrderProgram
                 Console.Write("Product price: ");
                 double productPrice = double.Parse(Console.ReadLine());
 
+                Product product = new Product(productName, productPrice);
+
                 Console.Write("Quantity: ");
                 int productQuantity = int.Parse(Console.ReadLine());
+
+                OrderItem orderItem = new OrderItem(productQuantity, productPrice, product);
+
+                order.AddItem(orderItem);
             }
-
-            Client client = new Client(name, email, birthDate);
-
-            Order order = new Order(DateTime.Now, status, client);
-
 
             Console.WriteLine("ORDER SUMARY: ");
 
             Console.WriteLine();
 
-            Console.WriteLine(order.ToString());
+            Console.WriteLine(order);
         }
     }
 }
